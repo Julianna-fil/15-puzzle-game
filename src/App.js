@@ -8,8 +8,13 @@ export class App extends Component {
     this.state = {
       puzzle: this.genetareShufflePuzzle(props.successPuzzle)
     };
+    this.count = 0;
+    this.baseState = this.state;
   }
-
+  resetForm = () => {
+    this.state = this.baseState;
+    this.count = 0;
+  };
   genetareShufflePuzzle(puzzle) {
     let newPuzzle = [];
     const first = 0;
@@ -69,7 +74,7 @@ export class App extends Component {
     const { puzzle } = this.state;
     const { successPuzzle } = this.props;
     let isWon = true;
-
+    this.count += 1;
     successPuzzle.every((square, i) => {
       if (square !== puzzle[i]) {
         isWon = false;
@@ -106,6 +111,7 @@ export class App extends Component {
       <div className="container">
         <div className="App">
           {this.displayPuzzle()}
+          <div>Count of step {this.count}</div>
           {this.isWinning() && <div>YOU WON!</div>}
         </div>
       </div>
